@@ -34,9 +34,9 @@ login 성공 시 welcome message와 채팅방에 입력된 최근 10개의 채�
 
 help: 도움말 출력
 
-say <message>: <message> 모두에게 전달 (format: [2024-3-11 18:10]nickname>> message)
+say <message>: <message> 모두에게 전달 (format: [YYYY-MM-DD HH:mm]nickname>> message)
 
-whisper <target> <message>: <target>에게 <message> 전달 (format: [2024-3-11 18:10](whisper)nickname>> message / [2024-3-11 18:10](whisper)nickname<< message)
+whisper <target> <message>: <target>에게 <message> 전달 (format: [YYYY-MM-DD HH:mm](whisper)nickname>> message / [YYYY-MM-DD HH:mm](whisper)nickname<< message)
 
 users: 현재 접속중인 유저 닉네임을 전부 출력
 
