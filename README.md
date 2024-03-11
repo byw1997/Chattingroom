@@ -36,7 +36,7 @@ help: 도움말 출력
 
 say <message>: <message> 모두에게 전달 (format: [YYYY-MM-DD HH:mm]nickname>> message)
 
-whisper <target> <message>: <target>에게 <message> 전달 (format: [YYYY-MM-DD HH:mm](whisper)nickname>> message / [YYYY-MM-DD HH:mm](whisper)nickname<< message)
+whisper <target> <message>: <target>에게 <message> 전달 (format: [YYYY-MM-DD HH:mm] (whisper)nickname>> message / [YYYY-MM-DD HH:mm] (whisper)nickname<< message)
 
 users: 현재 접속중인 유저 닉네임을 전부 출력
 
