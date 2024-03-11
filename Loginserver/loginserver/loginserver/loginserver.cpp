@@ -82,8 +82,16 @@ int sign_up(string id, string pw, string nickname) {
     pqxx::work worker(connectionObject);
     int new_user_id;
     try {
+        pqxx::result response = worker.exec_params("select count(distinct username) from users where username = $1", id);
+        if (response[0][0].as<int>()> 0) {
+            return -2;
+        }
+        response = worker.exec_params("select count(distinct nickname) from userdata where nickname = $1", nickname);
+        if (response[0][0].as<int>() > 0) {
+            return -3;
+        }
         new_user_id = idgen();//userid 생성
-        pqxx::result response = worker.exec_params("select count(distinct user_id) from users where user_id = $1", new_user_id);
+        response = worker.exec_params("select count(distinct user_id) from users where user_id = $1", new_user_id);
         while (response[0][0].as<int>() > 0) {//겹치는지 확인, 겹치면 재생성
             new_user_id = idgen();
             response = worker.exec_params("select count(distinct user_id) from users where user_id = $1", new_user_id);
@@ -286,11 +294,18 @@ void recv_from_client(SOCKET& s, int cnum) {
             string nickname(buf);
             string ret;
             try {
-                if (sign_up(inputid, inputpw, nickname) == -1) {
+                int signuphandler = sign_up(inputid, inputpw, nickname);
+                if (signuphandler == -1) {
                     cout << "sign up failed!" << endl;
                     ret = "Failed!";
                 }
-                else
+                else if (signuphandler == -2) {
+                    ret = "Existing ID";
+                }
+                else if (signuphandler == -3) {
+                    ret = "Existing Nickname";
+                }
+                else if(signuphandler == 0)
                     ret = "Now login!";
                 send(client_sockets[cnum], ret.c_str(), ret.size(), 0);
             }
