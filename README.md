@@ -17,6 +17,9 @@ Requirements
 -Need to create Database "host=localhost port=5432 dbname=serverpj user=dbadmin password=dbpassword" before test
 
 
+.cpp 경로:Loginserver\loginserver\loginserver\loginserver.cpp, Client\client\client\client.cpp
+
+
 서버는 최대 MAX_USERS_ONLINE(default = 10) 개의 클라이언트를 수용한다.
 
 클라이언트는 첫 화면에서 서버와 연결을 시도하며, 실패시 R을 입력하여 재시도, E를 입력하여 종료할 수 있다.
