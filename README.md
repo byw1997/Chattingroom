@@ -16,29 +16,33 @@ Requirements
 
 -Need to create Database "host=localhost port=5432 dbname=serverpj user=dbadmin password=dbpassword" before test
 
+-Need to update server ip address setting in client source code
 
-.cpp 경로:Loginserver\loginserver\loginserver\loginserver.cpp, Client\client\client\client.cpp
+
+.cpp route:Loginserver\loginserver\loginserver\loginserver.cpp, Client\client\client\client.cpp
 
 
-서버는 최대 MAX_USERS_ONLINE(default = 10) 개의 클라이언트를 수용한다.
+Every commands are case-insensitive.
 
-클라이언트는 첫 화면에서 서버와 연결을 시도하며, 실패시 R을 입력하여 재시도, E를 입력하여 종료할 수 있다.
+Server accepts at most MAX_USERS_ONLINE(default = 10) clients.
 
-연결 성공 시 login 을 입력하여 로그인 시도, signup을 입력하여 회원가입을 시도할 수 있다. exit을 입력 시 종료된다. exit이 입력되거나 login에 성공할 때까지 반복된다.
+client tries to connect to server socket. If fail to connect, Enter R to retry, Enter E to exit.
 
-signup 입력 시 ID, password, Nickname을 입력받는다. ID, Nickname 중복 여부를 데이터베이스를 조회해 검사한다. 조회된 column 수가 0보다 클 경우 signup이 실패하며 클라이언트는 실패 사유를 전달받는다.
+If success to make connection, Enter signup to make account. Enter E to exit. Loop while input is Exit or success login.
 
-login 입력 시 ID, password를 입력받는다. 데이터베이스를 조회해 입력받은 정보와 일치하는지 검사한다. 일치하지 않으면 실패한다. 또한 접속중인 유저들의 user_id와 대조하여 이미 접속중일 시 실패한다.
+If signup entered, Get ID, password, Nickname as input. Server checks ID, Nickname duplication by checking database. If more than 0 column checked, signup fails and notice client the reason why signup failed.
 
-login 성공 시 welcome message와 채팅방에 입력된 최근 10개의 채팅 내역을 출력하며 명령어를 입력받는다. 명령어는 다음과 같다.
+If login entered, Get ID, password as input. Check database and get column corresponding to the input. If none, login fails. And if the user_id in column corresponding to input already logged in, login fails.
 
-help: 도움말 출력
+If successfully logged in, client gets welcome message and recent 10 messages and get user command as input. These are user commands.
 
-say <message>: <message> 모두에게 전달 (format: [YYYY-MM-DD HH:mm]nickname>> message)
+help: output help message
 
-whisper <target> <message>: <target>에게 <message> 전달 (format: [YYYY-MM-DD HH:mm] (whisper)nickname>> message / [YYYY-MM-DD HH:mm] (whisper)nickname<< message)
+say <message>: send <message> to everyone (format: [YYYY-MM-DD HH:mm]nickname>> message)
 
-users: 현재 접속중인 유저 닉네임을 전부 출력
+whisper <target> <message>: send <message> to <target> (format: [YYYY-MM-DD HH:mm] (whisper)nickname>> message / [YYYY-MM-DD HH:mm] (whisper)nickname<< message)
 
-exit: 종료
+users: output every user nickname currently logged in
+
+exit: terminate
 
